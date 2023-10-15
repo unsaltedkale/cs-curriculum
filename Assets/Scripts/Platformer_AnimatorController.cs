@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Platformer_Animator : MonoBehaviour
+public class Platformer_AnimatorController : MonoBehaviour
 {
     public bool IsAttacking { get; private set; }
 
