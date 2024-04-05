@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //private TopDown_AnimatorController animatorScript;
-    [SerializeField] private bool overworld; //notice this private variable still shows up in the inspector
+    public bool overworld; 
 
     private void Start()
     {
