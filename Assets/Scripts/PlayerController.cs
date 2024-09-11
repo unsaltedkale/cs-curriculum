@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public bool overworld; 
+    public bool overworld;
+
+    // Movement variables
+    public float xSpeed = 5f;
+    private float xVector = 0f;
 
     private void Start()
     {
@@ -25,14 +29,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Handle input
+        float xDirection = Input.GetAxis("Horizontal");
+        // Calculate xVector based on input
+        //if the player moves super fast and jumps off the screen look at the Helpful Resources below.
+        xVector = xDirection * xSpeed * Time.deltaTime;
+        transform.Translate(xVector, 0, 0);
+    }
+
+    //for organization, put other built-in Unity functions here
+
+    private void FixedUpdate()
+    {
+        // Apply movement
+        //fixed update makes physics engine work better with fast moving objects.
+        //similar to x = x + xVector or
+        //transform.position = transform.position + new Vector3(xVector)
         
     }
-    
-    //for organization, put other built-in Unity functions here
-    
-    
-    
-    
-    
-    //after all Unity functions, your own functions can go here
 }
+
+    //after all Unity functions, your own functions can go here
