@@ -9,7 +9,10 @@ public class PlayerController : MonoBehaviour
 
     // Movement variables
     public float xSpeed = 5f;
+    public float ySpeed = 5f;
     private float xVector = 0f;
+    private float yVector = 0f;
+    private int score = 0;
 
     private void Start()
     {
@@ -24,29 +27,38 @@ public class PlayerController : MonoBehaviour
         else
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
+            ySpeed = 0;
         }
     }
 
     private void Update()
     {
-        // Handle input
+        // Handle Hori input
         float xDirection = Input.GetAxis("Horizontal");
         // Calculate xVector based on input
         //if the player moves super fast and jumps off the screen look at the Helpful Resources below.
         xVector = xDirection * xSpeed * Time.deltaTime;
-        transform.Translate(xVector, 0, 0);
+
+        // Handle Verti input
+        float yDirection = Input.GetAxis("Vertical");
+        // Calculate yVector based on input
+        //if the player moves super fast and jumps off the screen look at the Helpful Resources below.
+        yVector = yDirection * ySpeed * Time.deltaTime;
+        transform.Translate(xVector, yVector, 0);
     }
 
-    //for organization, put other built-in Unity functions here
-
-    private void FixedUpdate()
+     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Apply movement
-        //fixed update makes physics engine work better with fast moving objects.
-        //similar to x = x + xVector or
-        //transform.position = transform.position + new Vector3(xVector)
-        
+        if(other.CompareTag("Coin"))
+        {
+            // Increase Score
+            score += 1;
+
+            //Destory the coin
+            Destroy(other.gameObject);
+
+            // Temporary Score display
+            Debug.Log("Score: " + Score); 
+        }
     }
 }
-
-    //after all Unity functions, your own functions can go here
