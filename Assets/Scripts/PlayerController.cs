@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private float xVector = 0f;
     private float yVector = 0f;
     private int score = 0;
+    [SerializeField] private GameManager gm;
 
     private void Start()
     {
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
             GetComponent<Rigidbody2D>().gravityScale = 1;
             ySpeed = 0;
         }
+
+        gm = FindFirstObjectByType<GameManager>();
     }
 
     private void Update()
@@ -52,13 +55,10 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Coin"))
         {
             // Increase Score
-            score += 1;
+            gm.AddScore(1); // Add 1 to score for each coin
 
             //Destory the coin
             Destroy(other.gameObject);
-
-            // Temporary Score display
-            Debug.Log("Score: " + Score); 
         }
     }
 }

@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager gm;
+
     void Awake()
     {
-        if(GameManager != null && GameManager !=this)
+        if(gm != null && gm !=this)
         {
             Destroy(this.gameObject);
         }
         else
         {
-            GameManager = this;
-            DontDestroyOnLoad(this.gameObject)
+            gm = this;
+            DontDestroyOnLoad(this.gameObject);
         }
     }
 
@@ -22,7 +24,7 @@ public class GameManager : MonoBehaviour
         return Score;
     }
 
-    private SetScore(int amount)
+    private void SetScore(int amount)
     {
         Score = amount;
     }
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
     public void AddScore(int amount)
     {
         Score += amount;
+        // Temporary Score display
+        Debug.Log("Score: " + Score);
     }
 
     // Update is called once per frame
