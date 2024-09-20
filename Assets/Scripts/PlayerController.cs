@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     public float ySpeed = 5f;
     private float xVector = 0f;
     private float yVector = 0f;
-    private int score = 0;
     [SerializeField] private GameManager gm;
 
     private void Start()
@@ -55,7 +54,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Coin"))
         {
             // Increase Score
-            gm.AddScore(1); // Add 1 to score for each coin
+            gm.ChangeScore(1); // Add 1 to score for each coin
 
             //Destory the coin
             Destroy(other.gameObject);
