@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class PickUp : MonoBehaviour
 {
     public GameManager gm;
-    private int health;
+    private int score;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -18,9 +18,13 @@ public class Health : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Spikes"))
+        if(other.CompareTag("Coin"))
         {
-            gm.ChangeHealth(-5);
+            // Increase Score
+            gm.ChangeScore(1); // Add 1 to score for each coin
+
+            //Destroy the coin
+            Destroy(other.gameObject);
         }
     }
 }

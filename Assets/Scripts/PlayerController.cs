@@ -49,15 +49,5 @@ public class PlayerController : MonoBehaviour
         transform.Translate(xVector, yVector, 0);
     }
 
-     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Coin"))
-        {
-            // Increase Score
-            gm.ChangeScore(1); // Add 1 to score for each coin
-
-            //Destory the coin
-            Destroy(other.gameObject);
-        }
-    }
+    
 }
