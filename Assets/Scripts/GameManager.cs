@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,8 @@ public class GameManager : MonoBehaviour
     public int score;
     private int health;
     private int max_health = 10;
+    private string currentSceneName;
+    
 
     void Awake()
     {
@@ -47,6 +51,12 @@ public class GameManager : MonoBehaviour
     public void ChangeScore(int amount)
     {
         score += amount;
+        
+        if (score < 1)
+        {
+            SetScore(0);
+        }
+        
         // Temporary Score display
         Debug.Log("Score: " + score);
         // ACTUAL Score display
@@ -77,10 +87,9 @@ public class GameManager : MonoBehaviour
 
         if (health < 1)
         {
-            // Die();
             SetHealth(0);
             Debug.Log("you died!!!!!! get gud");
-            
+            Die();
         }
         
         health = gm.GetHealth();
@@ -91,9 +100,31 @@ public class GameManager : MonoBehaviour
         healthText.text = "Health: " + health;
     }
     
+    public void Die()
+    {
+        //if not keypressed {
+        //make an if else statement with a bool called keyPressed
+        //only able to set keypressed to true when you press one of the two keys
+        //else iff keypressed and key == left {
+        //bla ha
+        //else if keypressed and key == right {
+        //blalhalfhal
+        //
+        print("oop we reloading now boys!!");
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        health = max_health;
+        ChangeScore(-1);
+        SceneManager.LoadScene(currentSceneName);
+    }
+    
+    
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            SceneManager.LoadScene(0);
+        }
         
     }
 }
