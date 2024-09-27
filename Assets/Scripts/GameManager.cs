@@ -100,9 +100,11 @@ public class GameManager : MonoBehaviour
         healthText.text = "Health: " + health;
     }
     
+    private bool keypress
+    
     public void Die()
     {
-        //if not keypressed {
+        
         //make an if else statement with a bool called keyPressed
         //only able to set keypressed to true when you press one of the two keys
         //else iff keypressed and key == left {
@@ -121,10 +123,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if 
         {
-            SceneManager.LoadScene(0);
+            keypress = true;
         }
-        
+        else
+        keypress = false;
     }
 }
