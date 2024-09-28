@@ -100,42 +100,92 @@ public class GameManager : MonoBehaviour
         // ACTUAL Health display
         healthText.text = "Health: " + health;
     }
-    
+
+    private bool dead = false;
+    private int cycle = 0;
+
     public void Die()
     {
+        dead = true;
+        Time.timeScale = 0;
+        cycle = 0;
         
-        //make an if else statement with a bool called keyPressed
-        //else if (keypress = true && )
-        //only able to set keypressed to true when you press one of the two keys
-        //else iff keypressed and key == left {
-        //bla ha
-        //else if keypressed and key == right {
-        //blalhalfhal
+        if (keypress = true && Input.GetKey(KeyCode.Alpha1))
+        {
+            Debug.Log("oop we reloading now boys!! option 1");
+            Time.timeScale = 1;
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            health = max_health;
+            ChangeScore(-1);
+            SceneManager.LoadScene("Start");
+            dead = false;
+        }
+
+        else
+        {
+            Debug.Log("oop we reloading now boys!! no press 1");
+            Time.timeScale = 1;
+            string currentSceneName = SceneManager.GetActiveScene().name;
+            health = max_health;
+            ChangeScore(-1);
+            SceneManager.LoadScene(currentSceneName);
+            dead = false;
+        }
         
-        //if (keypress = true & input is left)
-        //SceneManager.LoadScene(startscene)
-        //else if (keypress = true & input is left)
-        //SceneManager.LoadScene(currentSceneName)
-        
-        
-        print("oop we reloading now boys!!");
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        health = max_health;
-        ChangeScore(-1);
-        SceneManager.LoadScene(currentSceneName);
     }
-    
-    
+    public IEnumerator Die2()
+    {
+        while (Time.timeScale == 0)
+        {
+            if (keypress = true && Input.GetKeyDown(KeyCode.Alpha1) && !Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("oop we reloading now boys!! option 1");
+                Time.timeScale = 1;
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                health = max_health;
+                ChangeScore(-1);
+                SceneManager.LoadScene(currentSceneName);
+                dead = false;
+                
+                yield break;
+            }
+
+            else if (keypress = true && Input.GetKeyDown(KeyCode.Alpha2) && !Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("oop we reloading now boys!! option 2");
+                Time.timeScale = 1;
+                string currentSceneName = SceneManager.GetActiveScene().name;
+                health = max_health;
+                ChangeScore(-1);
+                SceneManager.LoadScene(currentSceneName);
+                dead = false;
+                
+                yield break;
+            }
+
+            else if (keypress = true && Input.GetKeyDown(KeyCode.Alpha2) && Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("plewase press only oneeee :pleading_face:");
+            }
+        }
+
+        cycle += 1;
+        Debug.Log("Number of Cycles:" + cycle);
+        yield return new WaitForSecondsRealtime(1);
+        
+    }
+
     // Update is called once per frame
     private void Update()
     {
-        //if(keyboard input)
-        //{
-        //    keypress = true;
-        //}
-        //else
-        //{
-        //keypress = false;
-        //}
+        if(Input.anyKey)
+        {
+            keypress = true;
+        }
+        
+        else
+        {
+            keypress = false;
+        }
     }
 }
