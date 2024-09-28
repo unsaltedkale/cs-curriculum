@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     private int health;
     private int max_health = 10;
     private string currentSceneName;
+    private bool keypress;
     
 
     void Awake()
@@ -100,18 +101,23 @@ public class GameManager : MonoBehaviour
         healthText.text = "Health: " + health;
     }
     
-    private bool keypress
-    
     public void Die()
     {
         
         //make an if else statement with a bool called keyPressed
+        //else if (keypress = true && )
         //only able to set keypressed to true when you press one of the two keys
         //else iff keypressed and key == left {
         //bla ha
         //else if keypressed and key == right {
         //blalhalfhal
-        //
+        
+        //if (keypress = true & input is left)
+        //SceneManager.LoadScene(startscene)
+        //else if (keypress = true & input is left)
+        //SceneManager.LoadScene(currentSceneName)
+        
+        
         print("oop we reloading now boys!!");
         string currentSceneName = SceneManager.GetActiveScene().name;
         health = max_health;
@@ -121,13 +127,15 @@ public class GameManager : MonoBehaviour
     
     
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if 
-        {
-            keypress = true;
-        }
-        else
-        keypress = false;
+        //if(keyboard input)
+        //{
+        //    keypress = true;
+        //}
+        //else
+        //{
+        //keypress = false;
+        //}
     }
 }
