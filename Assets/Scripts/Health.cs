@@ -22,5 +22,7 @@ public class Health : MonoBehaviour
         {
             gm.ChangeHealth(-5);
         }
+        
+        // if (other.CompareTag("Bullet or Projectile idk man"))
     }
 }
