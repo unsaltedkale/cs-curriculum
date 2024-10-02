@@ -7,10 +7,13 @@ public class Turret : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
     private float cooldown;
-    private float firerate = 4;
+    private float firerate = 5;
     public GameObject TurretProjectile;
+    public GameObject player;
+    private bool can_shoot; 
     void Start()
     {
+        cooldown = firerate;
     }
 
 
@@ -18,14 +21,29 @@ public class Turret : MonoBehaviour
     void Update()
     {
         cooldown -= Time.deltaTime;
-    }
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") && cooldown <= 0)
+        if (can_shoot == true && cooldown < 0)
         {
-            GameObject instance = Instantiate(TurretProjectile, transform.position, quaternion.identity);
-            instance.GetComponent<Turret_Projectile>().target = other.transform.position;
+            GameObject clone = Instantiate(TurretProjectile, transform.position, quaternion.identity);
+            PlayerController player = GetComponent<PlayerController>();
+            clone.GetComponent<Turret_Projectile>().target = player.transform.position;
             cooldown = firerate;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            can_shoot = true;
+            Debug.Log("truee");
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            can_shoot = false;
+            Debug.Log("fffffalse");
         }
     }
 }

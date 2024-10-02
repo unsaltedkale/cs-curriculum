@@ -219,6 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurretProjectile: {fileID: 5790822057519619805, guid: d181d0f6b0e116b4298e1e64b89f707e,
     type: 3}
+  player: {fileID: 8049566408774423969, guid: bc139d8bb8dee439490b05712200dfee, type: 3}
 --- !u!50 &8342727353974451596
 Rigidbody2D:
   serializedVersion: 5
