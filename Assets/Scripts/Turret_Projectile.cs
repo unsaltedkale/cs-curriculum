@@ -22,7 +22,7 @@ public class Turret_Projectile : MonoBehaviour
         //transform.Translate(target_vector);
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
     }
-
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -38,7 +38,7 @@ public class Turret_Projectile : MonoBehaviour
 
     IEnumerator die_soon()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
         Destroy(gameObject);
     }
 }

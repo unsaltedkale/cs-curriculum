@@ -40023,6 +40023,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4999671708391494012, guid: 54f2fe71921990e48b811a0b3b35835f,
+        type: 3}
+      propertyPath: Turret_Projectile
+      value: 
+      objectReference: {fileID: 5790822057519619805, guid: d181d0f6b0e116b4298e1e64b89f707e,
+        type: 3}
+    - target: {fileID: 4999671708391494012, guid: 54f2fe71921990e48b811a0b3b35835f,
+        type: 3}
+      propertyPath: turret_Projectile
+      value: 
+      objectReference: {fileID: 5790822057519619805, guid: d181d0f6b0e116b4298e1e64b89f707e,
+        type: 3}
     - target: {fileID: 6040774585044851471, guid: 54f2fe71921990e48b811a0b3b35835f,
         type: 3}
       propertyPath: m_Name
