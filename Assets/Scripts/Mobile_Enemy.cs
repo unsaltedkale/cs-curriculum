@@ -8,39 +8,39 @@ public class Mobile_Enemy : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    public GameObject target0;
-    public GameObject target1;
-    public GameObject target2;
-    public GameObject target3;
-    public GameObject target4;
-    public GameObject currentTarget;
-    private List<GameObject> waypoints = new List<GameObject>(2);
-    private float speed = 4f;
+    public int currentTarget;
+    public List<Transform> waypoints;
+    private float speed = 3f;
     private float closest_distance;
     private GameManager gm;
+    public float waitTime;
+    private float maxwaitTime = 3;
     
     void Start()
     {
         gm = FindFirstObjectByType<GameManager>();
-        waypoints.Add(target0);
-        waypoints.Add(target1);
-        waypoints.Add(target2);
-        waypoints.Add(target3);
-        waypoints.Add(target4);
-        currentTarget = target0;
+        currentTarget = 0;
+        waitTime = maxwaitTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget.transform.position, speed * Time.deltaTime);
+        if ((Vector2.Distance(transform.position, waypoints[currentTarget].position)) < 0.1f)
+        {
+            waitTime -= Time.deltaTime;
+            
+            if (waitTime <= 0)
+            {
+                currentTarget += 1;
+                //% (modulus) take the remainder after dividing by the amount given. In this case current target = the remainder of currentTarget/waypoints.Count.
+                currentTarget %= waypoints.Count;
+
+                waitTime = maxwaitTime;
+            }
+        }
+        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentTarget].position,  speed * Time.deltaTime);
         // Check if the position of the cube and sphere are approximately equal.
         // if (Vector3.Distance(transform.position, target.position) < 0.001f)
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (waypoints.Contains(other.gameObject));
-            print ("yayyyyy!!!");
     }
 }
