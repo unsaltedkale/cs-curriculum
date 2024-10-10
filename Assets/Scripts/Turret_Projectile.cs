@@ -9,6 +9,7 @@ public class Turret_Projectile : MonoBehaviour
     private float speed = 4f;
     public Vector3 target;
     private GameManager gm;
+    
     void Start()
     {
         StartCoroutine(die_soon());
