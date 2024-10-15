@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using UnityEditor.U2D;
 
 public class Mobile_Enemy : MonoBehaviour
 {
@@ -20,6 +21,9 @@ public class Mobile_Enemy : MonoBehaviour
     private Vector3 playercurrentposition;
     public States state;
     private bool PlayerInTrigger;
+    private bool startofstate;
+    private float attackingradius;
+    public Animator animator;
 
     public enum States
     {
@@ -36,6 +40,9 @@ public class Mobile_Enemy : MonoBehaviour
         currentTarget = 0;
         waitTime = maxwaitTime;
         state = States.Patrol;
+        startofstate = true;
+        attackingradius = 1.75f;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -43,6 +50,12 @@ public class Mobile_Enemy : MonoBehaviour
     {
         if (state == States.Patrol)
         {
+            if (startofstate == true);
+            {
+                //start stuff
+                startofstate = false;
+            }
+            
             // Check if the position of the enemy and target are approximately equal.
             if ((Vector2.Distance(transform.position, waypoints[currentTarget].position)) < 0.1f)
             {
@@ -64,7 +77,28 @@ public class Mobile_Enemy : MonoBehaviour
 
         if (state == States.Chasing)
         {
+            if (startofstate == true);
+            {
+                //start stuff
+                startofstate = false;
+            }
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position,  speed * Time.deltaTime);
+        }
+
+        if (state == States.Attacking)
+        {
+            if (startofstate == true);
+            {
+                //atttack stuff
+                print("im attacking!!!! raaaaa!!!!!!!");
+                startofstate = false;
+            }
+            animator.SetBool("Attack", true);
+        }
+
+        if (state != States.Attacking)
+        {
+            animator.SetBool("Attack", false);
         }
     }
     
@@ -72,18 +106,37 @@ public class Mobile_Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            state = States.Chasing;
-            PlayerInTrigger = true;
+            //if (state == States.Chasing)
+            //if (gameObject.CompareTag("AttackingRadius"))
+            if ((Vector2.Distance(transform.position, player.transform.position)) < attackingradius)
+            {
+                state = States.Attacking;
+                startofstate = true;
+            }
+            if ((Vector2.Distance(transform.position, player.transform.position)) > attackingradius)
+            {
+                state = States.Chasing;
+                startofstate = true;
+                PlayerInTrigger = true;
+            }
         }
     }
     
     private void OnTriggerExit2D(Collider2D other)
     {
-
         if (other.CompareTag("Player"))
         {
-            PlayerInTrigger = false;
-            StartCoroutine(ChasingStop());
+            if ((Vector2.Distance(transform.position, player.transform.position)) < attackingradius)
+            {
+                state = States.Chasing;
+                startofstate = true;
+            }
+
+            if ((Vector2.Distance(transform.position, player.transform.position)) > attackingradius)
+            {
+                PlayerInTrigger = false;
+                StartCoroutine(ChasingStop());
+            }
         }
     }
 
@@ -99,8 +152,21 @@ public class Mobile_Enemy : MonoBehaviour
             if (PlayerInTrigger == false);
             {
                 state = States.Wait;
+                startofstate = true;
                 yield return new WaitForSeconds(1);
-                state = States.Patrol;
+                
+                if (PlayerInTrigger == true);
+                {
+                    state = States.Chasing;
+                    startofstate = true;
+                    yield return state;
+                }
+                
+                if (PlayerInTrigger == false)
+                {
+                    state = States.Patrol;
+                    startofstate = true;
+                }
             }
             // if player out of trigger set to wait and then patrol
     }

@@ -31,6 +31,7 @@ public class Turret_Projectile : MonoBehaviour
             gm.ChangeHealth(-2);
             Destroy(gameObject);
         }
+        
         else
         {
             Destroy(gameObject);
