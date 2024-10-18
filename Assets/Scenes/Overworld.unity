@@ -118,6 +118,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &96670587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3736838050167469039, guid: fbdc99957549444bfba281e61d9d218c,
+    type: 3}
+  m_PrefabInstance: {fileID: 697112871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &186509170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39973,6 +39979,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2873576006610771089, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 605225463}
+    - target: {fileID: 2873576006610771089, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: CurrentEnemy
+      value: 
+      objectReference: {fileID: 96670587}
+    - target: {fileID: 2873576006610771089, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: enemyanimator
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873576006610771089, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: enemyattacking
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7819348094328437333, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -40126,6 +40152,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 605225463}
+    - target: {fileID: 108233993841179833, guid: fbdc99957549444bfba281e61d9d218c,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1980911421}
     - target: {fileID: 108233993841179833, guid: fbdc99957549444bfba281e61d9d218c,
         type: 3}
       propertyPath: waypoints.Array.size
@@ -85387,6 +85418,12 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!95 &1980911421 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2864171262592659787, guid: fbdc99957549444bfba281e61d9d218c,
+    type: 3}
+  m_PrefabInstance: {fileID: 697112871}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2020212485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4281311786053241907, guid: 69c7343f050914c7787bbbe42c07b5b8,

@@ -42,7 +42,6 @@ public class Mobile_Enemy : MonoBehaviour
         state = States.Patrol;
         startofstate = true;
         attackingradius = 1.75f;
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -121,7 +120,11 @@ public class Mobile_Enemy : MonoBehaviour
             }
         }
     }
-    
+
+    public void ChangeHealth()
+    {
+        print ("i got ouchies :(( - enemy");
+    }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
