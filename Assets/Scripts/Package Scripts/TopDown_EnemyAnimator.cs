@@ -8,6 +8,7 @@ public class TopDown_EnemyAnimator : MonoBehaviour
 
     Vector3 prevPos;
     Animator anim;
+    public GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -19,36 +20,63 @@ public class TopDown_EnemyAnimator : MonoBehaviour
     void FixedUpdate()
     {
         Vector3 movement = transform.position - prevPos;
-
-        if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
+        Vector3 attackingmovement = player.transform.position - transform.position;
+        
+        if (IsAttacking == false)
         {
-            if (movement.x > 0f)
+            if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
             {
-                anim.SetInteger("Direction", 0);
+                if (movement.x > 0f)
+               {
+                    anim.SetInteger("Direction", 0);
+                    }
+             if (movement.x < 0f)
+                {
+                    anim.SetInteger("Direction", 2);
+                }
             }
-            if (movement.x < 0f)
+            else
             {
-                anim.SetInteger("Direction", 2);
+                if (movement.y > 0f)
+                {
+                   anim.SetInteger("Direction", 1);
+               }
+    
+               if (movement.y < 0f)
+               {
+                  anim.SetInteger("Direction", 3);
+              } 
             }
         }
-        else
+        else if (IsAttacking)
         {
-            if (movement.y > 0f)
+            if (Mathf.Abs(attackingmovement.x) > Mathf.Abs(attackingmovement.y))
             {
-                anim.SetInteger("Direction", 1);
+                if (attackingmovement.x > 0f)
+                {
+                    anim.SetInteger("Direction", 0);
+                }
+
+                if (attackingmovement.x < 0f)
+                {
+                    anim.SetInteger("Direction", 2);
+                }
             }
-            if (movement.y < 0f)
+            else
             {
-                anim.SetInteger("Direction", 3);
+                if (attackingmovement.y > 0f)
+                {
+                    anim.SetInteger("Direction", 1);
+                }
+
+                if (attackingmovement.y < 0f)
+                {
+                    anim.SetInteger("Direction", 3);
+                }
             }
         }
 
         prevPos = transform.position;
-
-        if (Input.GetMouseButton(0))
-        {
-            Attack();
-        }
 
         IsAttacking = anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
     }
@@ -57,5 +85,6 @@ public class TopDown_EnemyAnimator : MonoBehaviour
     public void Attack()
     {
         anim.SetTrigger("Attack");
+        print ("attack call success");
     }
 }

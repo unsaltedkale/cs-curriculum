@@ -24,6 +24,11 @@ public class Mobile_Enemy : MonoBehaviour
     private bool startofstate;
     private float attackingradius;
     public Animator animator;
+    public float attackcooldown;
+    public float attackcooldownmax;
+    public TopDown_EnemyAnimator tdea;
+    public BoxCollider2D hitbox;
+    private Vector2 hitboxoriginal;
 
     public enum States
     {
@@ -37,11 +42,16 @@ public class Mobile_Enemy : MonoBehaviour
     void Start()
     {
         gm = FindFirstObjectByType<GameManager>();
+        tdea = GetComponentInChildren<TopDown_EnemyAnimator>();
+        print(tdea);
         currentTarget = 0;
         waitTime = maxwaitTime;
         state = States.Patrol;
         startofstate = true;
-        attackingradius = 1.75f;
+        attackingradius = 2f;
+        attackcooldownmax = 2;
+        hitbox = GetComponent<BoxCollider2D>();
+        hitboxoriginal = hitbox.size;
     }
 
     // Update is called once per frame
@@ -89,15 +99,35 @@ public class Mobile_Enemy : MonoBehaviour
             if (startofstate == true);
             {
                 //atttack stuff
-                print("im attacking!!!! raaaaa!!!!!!!");
                 startofstate = false;
             }
-            animator.SetBool("Attack", true);
-        }
 
-        if (state != States.Attacking)
-        {
-            animator.SetBool("Attack", false);
+            attackcooldown -= Time.deltaTime;
+            
+            if (attackcooldown <= 0)
+            {
+                attackcooldown = attackcooldownmax;
+                print("im attacking!!!! raaaaa!!!!!!!");
+                tdea.Attack(); // play the attack animation
+                hitbox.size = new Vector2(2.72f, 3.14f);
+                if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()))
+                {
+                    gm.ChangeHealth(-3);
+                    print("gotcha lol get gud");
+                }
+
+                hitbox.size = hitboxoriginal;
+            }
+
+            if (state != States.Attacking)
+            {
+                if ((Vector2.Distance(transform.position, player.transform.position)) < attackingradius)
+                {
+                    state = States.Attacking;
+                    startofstate = true;
+                }
+            }
+            
         }
     }
     
@@ -119,11 +149,6 @@ public class Mobile_Enemy : MonoBehaviour
                 PlayerInTrigger = true;
             }
         }
-    }
-
-    public void ChangeHealth()
-    {
-        print ("i got ouchies :(( - enemy");
     }
     private void OnTriggerExit2D(Collider2D other)
     {
