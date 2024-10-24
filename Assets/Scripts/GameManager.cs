@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     private int max_health = 10;
     private string currentSceneName;
     private bool keypress;
-    
+    public float iframes;
+    public float maxiframes = 2;
 
     void Awake()
     {
@@ -80,25 +81,31 @@ public class GameManager : MonoBehaviour
     
     public void ChangeHealth(int amount)
     {
-        health += amount;
-        if (health > max_health)
+        if (iframes <= 0)
         {
-            health = max_health;
-        }
+            health += amount;
+            if (health > max_health)
+            {
+                health = max_health;
+            }
 
-        if (health < 1)
-        {
-            SetHealth(0);
-            Debug.Log("you died!!!!!! get gud");
-            Die();
+            if (health < 1)
+            {
+                SetHealth(0);
+                Debug.Log("you died!!!!!! get gud");
+                Die();
+            }
+
+            iframes = maxiframes;
+
+            health = gm.GetHealth();
+
+            // Temporary Health display
+            Debug.Log("Health: " + health);
+            // ACTUAL Health display
+            healthText.text = "Health: " + health;
         }
         
-        health = gm.GetHealth();
-        
-        // Temporary Health display
-        Debug.Log("Health: " + health);
-        // ACTUAL Health display
-        healthText.text = "Health: " + health;
     }
 
     private bool dead = false;
@@ -112,6 +119,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (iframes > 0)
+        {
+            iframes -= Time.deltaTime;
+        }
+        
         if(Input.anyKey)
         {
             keypress = true;

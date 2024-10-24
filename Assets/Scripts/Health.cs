@@ -43,7 +43,7 @@ public class Health : MonoBehaviour
         // if (other.CompareTag("Bullet or Projectile idk man"))
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    /*private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
@@ -70,5 +70,5 @@ public class Health : MonoBehaviour
                 
             }
         }
-    }
+    }*/
 }

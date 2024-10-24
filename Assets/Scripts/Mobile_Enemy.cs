@@ -23,12 +23,12 @@ public class Mobile_Enemy : MonoBehaviour
     private bool PlayerInTrigger;
     private bool startofstate;
     private float attackingradius;
-    public Animator animator;
     public float attackcooldown;
     public float attackcooldownmax;
     public TopDown_EnemyAnimator tdea;
     public BoxCollider2D hitbox;
     private Vector2 hitboxoriginal;
+    public float attackanimationtimer;
 
     public enum States
     {
@@ -51,7 +51,7 @@ public class Mobile_Enemy : MonoBehaviour
         attackingradius = 2f;
         attackcooldownmax = 2;
         hitbox = GetComponent<BoxCollider2D>();
-        hitboxoriginal = hitbox.size;
+        hitboxoriginal = new Vector2 (0.72f, 1.14f);
     }
 
     // Update is called once per frame
@@ -81,7 +81,8 @@ public class Mobile_Enemy : MonoBehaviour
                 }
             }
             transform.position = Vector2.MoveTowards(transform.position, waypoints[currentTarget].position,  speed * Time.deltaTime);
-
+            hitbox.size = hitboxoriginal;
+            hitbox.isTrigger = false;
         }
 
         if (state == States.Chasing)
@@ -92,6 +93,9 @@ public class Mobile_Enemy : MonoBehaviour
                 startofstate = false;
             }
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position,  speed * Time.deltaTime);
+            
+            hitbox.size = hitboxoriginal;
+            hitbox.isTrigger = false;
         }
 
         if (state == States.Attacking)
@@ -104,23 +108,44 @@ public class Mobile_Enemy : MonoBehaviour
 
             attackcooldown -= Time.deltaTime;
             
-            if (attackcooldown <= 0)
+            // AAAAAAA WHY IS THIS WEIRD HALP
+            if (attackanimationtimer >= 0) // if the attack animation is not playing
             {
+                attackanimationtimer -= Time.deltaTime;
+                hitbox.size = hitboxoriginal;
+                hitbox.isTrigger = false;
+            }
+
+            if (attackcooldown <= 0 && attackanimationtimer <= 0)
+            {
+                // start of attack
                 attackcooldown = attackcooldownmax;
+                attackanimationtimer = 0.75f;
                 print("im attacking!!!! raaaaa!!!!!!!");
                 tdea.Attack(); // play the attack animation
-                hitbox.size = new Vector2(2.72f, 3.14f);
-                if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()))
+            }
+
+            if (attackanimationtimer < 0.225f && attackanimationtimer > 0); // if 0.225 > attackanimationtimer > 0
+            {
+                //middle of attack, when the sword is out
+                hitbox.size = new Vector2(1.72f, 2.44f);
+                hitbox.isTrigger = true;
+                if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && gm.GetHealth() > 0)
                 {
                     gm.ChangeHealth(-3);
                     print("gotcha lol get gud");
+                    attackanimationtimer = 0;
+                    hitbox.size = hitboxoriginal;
+                    hitbox.isTrigger = false;
+                    print("wowieeee!!!!!!!!!");
                 }
-
-                hitbox.size = hitboxoriginal;
             }
 
             if (state != States.Attacking)
             {
+                
+                hitbox.size = hitboxoriginal;
+                hitbox.isTrigger = false;
                 if ((Vector2.Distance(transform.position, player.transform.position)) < attackingradius)
                 {
                     state = States.Attacking;
@@ -129,15 +154,21 @@ public class Mobile_Enemy : MonoBehaviour
             }
             
         }
+        
+        if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && state != States.Attacking)
+        {
+            state = States.Attacking;
+            startofstate = true;
+        }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             //if (state == States.Chasing)
             //if (gameObject.CompareTag("AttackingRadius"))
-            if ((Vector2.Distance(transform.position, player.transform.position)) < attackingradius)
+            if ((Vector2.Distance(transform.position, player.transform.position)) <= attackingradius)
             {
                 state = States.Attacking;
                 startofstate = true;
