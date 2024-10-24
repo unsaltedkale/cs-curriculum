@@ -3140,6 +3140,8 @@ MonoBehaviour:
   healthText: {fileID: 1590823685}
   scoreText: {fileID: 1695315057}
   score: 0
+  iframes: 0
+  maxiframes: 2
 --- !u!95 &1351463519 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8817025345248629567, guid: bc139d8bb8dee439490b05712200dfee,
