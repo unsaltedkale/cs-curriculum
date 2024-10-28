@@ -39999,6 +39999,16 @@ PrefabInstance:
       propertyPath: enemyattacking
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3557327843128524543, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5774960653562304022, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
+      propertyPath: attackcooldownmax
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 7819348094328437333, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -40167,6 +40177,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 605225463}
+    - target: {fileID: 108233993841179833, guid: fbdc99957549444bfba281e61d9d218c,
+        type: 3}
+      propertyPath: AxeItem
+      value: 
+      objectReference: {fileID: 8928701524657299959, guid: 2d2bc4cf5fda5c740b9cedcdbc7c87ac,
+        type: 3}
     - target: {fileID: 108233993841179833, guid: fbdc99957549444bfba281e61d9d218c,
         type: 3}
       propertyPath: animator
