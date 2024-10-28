@@ -14,6 +14,7 @@ public class TopDown_AnimatorController : MonoBehaviour
 
     Animator anim;
     SpriteRenderer sprite;
+    
 
     private void Start()
     {
@@ -71,12 +72,6 @@ public class TopDown_AnimatorController : MonoBehaviour
         }
         else
         {
-            anim.SetBool("IsWalking", false);
-        }
-
-        if (Input.GetMouseButton(0))
-        {
-            anim.SetTrigger("Attack");
             anim.SetBool("IsWalking", false);
         }
 

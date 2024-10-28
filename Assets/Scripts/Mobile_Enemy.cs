@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using UnityEditor.U2D;
+using Unity.Mathematics;
 
 public class Mobile_Enemy : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class Mobile_Enemy : MonoBehaviour
     public BoxCollider2D hitbox;
     private Vector2 hitboxoriginal;
     public float attackanimationtimer;
+    public float enemyhealth;
+    public float enemyhealthmax;
+    public GameObject AxeItem;
 
     public enum States
     {
@@ -52,12 +56,24 @@ public class Mobile_Enemy : MonoBehaviour
         attackcooldownmax = 2;
         hitbox = GetComponent<BoxCollider2D>();
         hitboxoriginal = new Vector2 (0.72f, 1.14f);
+        enemyhealthmax = 3;
+        enemyhealth = enemyhealthmax;
     }
 
+    public void EnemyHealthChange(int num)
+    {
+        enemyhealth += num;
+    }
+    
     // Update is called once per frame
     void Update()
     {
-        if (state == States.Patrol)
+        if (enemyhealth <= 0)
+        {
+            EnemyDie();
+        }
+        
+        else if (state == States.Patrol)
         {
             if (startofstate == true);
             {
@@ -85,7 +101,7 @@ public class Mobile_Enemy : MonoBehaviour
             hitbox.isTrigger = false;
         }
 
-        if (state == States.Chasing)
+        else if (state == States.Chasing)
         {
             if (startofstate == true);
             {
@@ -98,7 +114,7 @@ public class Mobile_Enemy : MonoBehaviour
             hitbox.isTrigger = false;
         }
 
-        if (state == States.Attacking)
+        else if (state == States.Attacking)
         {
             if (startofstate == true);
             {
@@ -155,11 +171,23 @@ public class Mobile_Enemy : MonoBehaviour
             
         }
         
-        if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && state != States.Attacking)
+        else if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && state != States.Attacking)
         {
             state = States.Attacking;
             startofstate = true;
         }
+    }
+    
+    private void EnemyDie()
+    {
+        print (":(((( ouchiessssss");
+        
+        /*GameObject clone = Instantiate(Turret_Projectile, transform.position, quaternion.identity);
+           Turret_Projectile script = clone.GetComponent<Turret_Projectile>();
+           script.target = player.transform.position;*/
+        
+        GameObject clone = Instantiate(AxeItem, transform.position, quaternion.identity);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

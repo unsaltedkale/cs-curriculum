@@ -41,13 +41,7 @@ public class Platformer_AnimatorController : MonoBehaviour
         {
             anim.SetBool("IsWalking", false);
         }
-
-        if (Input.GetMouseButton(0))
-        {
-            anim.SetTrigger("Attack");
-            anim.SetBool("IsWalking", false);
-        }
-
+        
         IsAttacking = anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack");
     }
 }
