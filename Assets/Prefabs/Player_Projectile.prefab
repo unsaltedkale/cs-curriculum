@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7101103389178533185}
   - component: {fileID: -3514862467880035125}
   - component: {fileID: 4327165216284067482}
-  - component: {fileID: 1811760131108971038}
+  - component: {fileID: 783523137838646489}
   m_Layer: 0
   m_Name: Player_Projectile
   m_TagString: Untagged
@@ -125,7 +125,7 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.08
---- !u!114 &1811760131108971038
+--- !u!114 &783523137838646489
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,7 +134,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5790822057519619805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e89e70bbacff4c07a3590cc0900a19e, type: 3}
+  m_Script: {fileID: 11500000, guid: dd453fa355e874740b54176de2a5ffb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {x: 0, y: 0, z: 0}
+  axe: {fileID: 8928701524657299959, guid: 2d2bc4cf5fda5c740b9cedcdbc7c87ac, type: 3}

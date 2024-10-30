@@ -40006,6 +40006,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774960653562304022, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
+      propertyPath: Player_Projectile
+      value: 
+      objectReference: {fileID: 5790822057519619805, guid: 76011cb888e0e45c9ab72829080a2d3f,
+        type: 3}
+    - target: {fileID: 5774960653562304022, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
       propertyPath: attackcooldownmax
       value: 0.6
       objectReference: {fileID: 0}
@@ -40027,12 +40033,12 @@ PrefabInstance:
     - target: {fileID: 7819348094328437333, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.542
       objectReference: {fileID: 0}
     - target: {fileID: 7819348094328437333, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.46
+      value: -2.345
       objectReference: {fileID: 0}
     - target: {fileID: 7819348094328437333, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}

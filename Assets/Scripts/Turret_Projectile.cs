@@ -5,7 +5,6 @@ using UnityEngine;
 public class Turret_Projectile : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private Vector3 heading;
     private float speed = 4f;
     public Vector3 target;
     private GameManager gm;

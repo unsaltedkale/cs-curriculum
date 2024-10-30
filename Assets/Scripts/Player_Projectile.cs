@@ -1,19 +1,25 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player_Projectile : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    private Vector3 heading;
+    private Vector3 CenterRef = new Vector3 (Screen.width*0.5f, Screen.height*0.5f);
     private float speed = 4f;
-    public Vector3 target;
+    public Vector3 target; // current mouse position where bottom left of screen is 0,0 and
+    // The top-right of the screen or window is at (Screen.width, Screen.height).
+    private Vector3 mousePos;
     private GameManager gm;
+    public GameObject axe;
     
     void Start()
     {
         StartCoroutine(die_soon());
         gm = FindFirstObjectByType<GameManager>();
+        mousePos = target - CenterRef;
     }
 
     // Update is called once per frame
@@ -21,7 +27,7 @@ public class Player_Projectile : MonoBehaviour
     {
         //target_vector = speed * heading * Time.deltaTime;
         //transform.Translate(target_vector);
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
     }
     
     private void OnCollisionEnter2D(Collision2D other)
@@ -29,6 +35,7 @@ public class Player_Projectile : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
+            Instantiate(axe, other.transform.position, quaternion.identity);
             Destroy(gameObject);
         }
         

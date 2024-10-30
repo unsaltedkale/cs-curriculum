@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     private bool keypress;
     Animator anim;
     private float attackanimationtimer;
-    private float firerate = 4;
     public GameObject Player_Projectile;
     
     private void Start()
@@ -78,15 +77,18 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("IsWalking", false);
             attackcooldown = attackcooldownmax;
             attackanimationtimer = 0.667f;
+            // offset so doesn't hit player
+            Vector3 vector = Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
+            vector = Vector3.Normalize(vector);
+            GameObject clone = Instantiate(Player_Projectile, transform.position + vector*1f, quaternion.identity);
+            Player_Projectile script = clone.GetComponent<Player_Projectile>();
+            script.target = Input.mousePosition;
         }
 
     }
 }
 
 /*
-private float cooldown;
-   
-   
    GameObject clone = Instantiate(Turret_Projectile, transform.position, quaternion.identity);
    Turret_Projectile script = clone.GetComponent<Turret_Projectile>();
    script.target = player.transform.position;

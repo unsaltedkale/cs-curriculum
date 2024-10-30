@@ -56,7 +56,6 @@ public class Mobile_Enemy : MonoBehaviour
         attackcooldownmax = 2;
         hitbox = GetComponent<BoxCollider2D>();
         hitboxoriginal = new Vector2 (0.72f, 1.14f);
-        enemyhealthmax = 3;
         enemyhealth = enemyhealthmax;
     }
 
@@ -67,13 +66,8 @@ public class Mobile_Enemy : MonoBehaviour
     
     // Update is called once per frame
     void Update()
-    {
-        if (enemyhealth <= 0)
-        {
-            EnemyDie();
-        }
-        
-        else if (state == States.Patrol)
+    { 
+        if (state == States.Patrol)
         {
             if (startofstate == true);
             {
@@ -181,11 +175,6 @@ public class Mobile_Enemy : MonoBehaviour
     private void EnemyDie()
     {
         print (":(((( ouchiessssss");
-        
-        /*GameObject clone = Instantiate(Turret_Projectile, transform.position, quaternion.identity);
-           Turret_Projectile script = clone.GetComponent<Turret_Projectile>();
-           script.target = player.transform.position;*/
-        
         GameObject clone = Instantiate(AxeItem, transform.position, quaternion.identity);
         Destroy(gameObject);
     }
