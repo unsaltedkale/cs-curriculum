@@ -14,6 +14,7 @@ public class TopDown_AnimatorController : MonoBehaviour
 
     Animator anim;
     SpriteRenderer sprite;
+    public PlayerController playercontroller;
     
 
     private void Start()
@@ -83,11 +84,13 @@ public class TopDown_AnimatorController : MonoBehaviour
     public void SwitchToAxe()
     {
         anim.runtimeAnimatorController = animAxe;
+        playercontroller.hasaxe = true;
     }
 
     // Call this function to set the weapon back to a shovel.
     public void SwitchToShovel()
     {
         anim.runtimeAnimatorController = animShovel;
+        playercontroller.hasaxe = false;
     }
 }

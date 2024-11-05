@@ -14,6 +14,7 @@ public class Player_Projectile : MonoBehaviour
     private Vector3 mousePos;
     private GameManager gm;
     public GameObject axe;
+    public bool isfromaxe;
     
     void Start()
     {
@@ -38,6 +39,12 @@ public class Player_Projectile : MonoBehaviour
             Instantiate(axe, other.transform.position, quaternion.identity);
             Destroy(gameObject);
         }
+        
+        /*else if (other.gameObject.CompareTag("BreakableDoor") && isfromaxe == true)
+        {
+            other.gameObject.SetActive(false);
+            Destroy(gameObject);
+        }*/
         
         else
         {

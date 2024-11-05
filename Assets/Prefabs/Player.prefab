@@ -138,6 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animShovel: {fileID: 9100000, guid: 1ccf3beb0c6f246e99cc9a927f1fd12e, type: 2}
   animAxe: {fileID: 9100000, guid: 8cf1007ae09a548dfb24a581133c15db, type: 2}
+  playercontroller: {fileID: 5774960653562304022}
 --- !u!1 &8049566408774423969
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +264,9 @@ MonoBehaviour:
   overworld: 1
   xSpeed: 5
   ySpeed: 5
-  gm: {fileID: 0}
+  attackcooldown: 0
+  Player_Projectile: {fileID: 0}
+  hasaxe: 0
 --- !u!114 &2873576006610771089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +280,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
+  playerattacking: 0
+  enemyattacking: 0
+  Player: {fileID: 0}
+  playeranimator: {fileID: 0}
+  CurrentEnemy: {fileID: 0}
+  enemyanimator: {fileID: 0}
 --- !u!114 &913476665193073101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,3 +299,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
+  anim: {fileID: 0}

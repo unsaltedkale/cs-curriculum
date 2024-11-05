@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     private float attackanimationtimer;
     public GameObject Player_Projectile;
+    public bool hasaxe;
     
     private void Start()
     {
@@ -39,7 +40,6 @@ public class PlayerController : MonoBehaviour
         }
 
         gm = FindFirstObjectByType<GameManager>();
-        
     }
 
     private void Update()
@@ -83,15 +83,28 @@ public class PlayerController : MonoBehaviour
             GameObject clone = Instantiate(Player_Projectile, transform.position + vector*1f, quaternion.identity);
             Player_Projectile script = clone.GetComponent<Player_Projectile>();
             script.target = Input.mousePosition;
+            script.isfromaxe = hasaxe;
+
+            if (doorother != null && hasaxe)
+            {
+                doorother.SetActive(false);
+            }
         }
 
     }
-}
 
-/*
-   GameObject clone = Instantiate(Turret_Projectile, transform.position, quaternion.identity);
-   Turret_Projectile script = clone.GetComponent<Turret_Projectile>();
-   script.target = player.transform.position;
-   cooldown = firerate;
-   cooldown -= Time.deltaTime;
-   */
+    private GameObject doorother;
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("BreakableDoor"))
+        {
+            doorother = other.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        doorother = null;
+    }
+}
