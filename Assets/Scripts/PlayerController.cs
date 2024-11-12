@@ -91,6 +91,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        if (keypress == true && Input.GetKey(KeyCode.Space) /*and not in mid air*/)
+        {
+            // jump??? Rigidbody.AddForce(0, 2, 0, ForceMode.Impulse);
+        }
+
     }
 
     private GameObject doorother;
