@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private float attackanimationtimer;
     public GameObject Player_Projectile;
     public bool hasaxe;
+    public Collider2D col;
+    public Rigidbody2D rb;
     
     private void Start()
     {
@@ -39,7 +41,9 @@ public class PlayerController : MonoBehaviour
             ySpeed = 0;
         }
 
+        rb = GetComponent<Rigidbody2D>();
         gm = FindFirstObjectByType<GameManager>();
+        col = GetComponent<Collider2D>();
     }
 
     private void Update()
@@ -91,13 +95,29 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (keypress == true && Input.GetKey(KeyCode.Space) /*and not in mid air*/)
+        if (Input.GetKey(KeyCode.Space) && isGrounded == true)
         {
-            // jump??? Rigidbody.AddForce(0, 2, 0, ForceMode.Impulse);
+            //transform.position += new Vector3(0, JumpHeight, 0);
+            isGrounded = false;
+            rb.AddForce(Vector2.up * JumpHeight, ForceMode2D.Impulse);
+            print("jump");
         }
 
+        
+        if (Physics2D.Raycast(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down, .2f)
+            || Physics2D.Raycast(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down, .2f))
+        {
+            isGrounded = true;
+        }
+        
+        Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down * .2f);
     }
-
+    
+    public float JumpHeight = 3f;
+    private bool isGrounded;
+   
+    
+    
     private GameObject doorother;
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -107,7 +127,7 @@ public class PlayerController : MonoBehaviour
             doorother = other.gameObject;
         }
     }
-
+    
     private void OnCollisionExit2D(Collision2D other)
     {
         doorother = null;
