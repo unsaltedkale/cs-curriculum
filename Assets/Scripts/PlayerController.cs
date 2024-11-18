@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     public bool hasaxe;
     public Collider2D col;
     public Rigidbody2D rb;
+    public float JumpHeight = 5f;
+    public bool isGrounded;
+    public float distance;
+    public float yOffset = -0.04f;
     
     private void Start()
     {
@@ -98,23 +102,32 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && isGrounded == true)
         {
             //transform.position += new Vector3(0, JumpHeight, 0);
-            isGrounded = false;
             rb.AddForce(Vector2.up * JumpHeight, ForceMode2D.Impulse);
             print("jump");
+            isGrounded = false;
         }
 
+        RaycastHit2D lit;
+        RaycastHit2D rit;
         
-        if (Physics2D.Raycast(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down, .2f)
-            || Physics2D.Raycast(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down, .2f))
+        if (Physics2D.Raycast(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down, distance) 
+            || Physics2D.Raycast(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down, distance))
         {
             isGrounded = true;
+            print("hit");
+        }
+
+        else
+        {
+            isGrounded = false;
         }
         
-        Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y), Vector2.down * .2f);
-    }
-    
-    public float JumpHeight = 3f;
-    private bool isGrounded;
+        
+        Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
+        Debug.DrawRay(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
+    }   
+
+
    
     
     
