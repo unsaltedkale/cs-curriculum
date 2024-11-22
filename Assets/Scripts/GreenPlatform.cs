@@ -10,10 +10,22 @@ public class GreenPlatform : MonoBehaviour
     private GameManager gm;
     public float waitTime;
     private float maxwaitTime = 3;
+    public bool OnTrigger;
+    public bool Triggered;
     
     void Start()
     {
-        
+        if (OnTrigger == true)
+        {
+            Triggered = false;
+        }
+        else
+        {
+            Triggered = true;
+        }
+
+        currentTarget = 1;
+        waitTime = maxwaitTime;
     }
 
     // Update is called once per frame
@@ -31,9 +43,19 @@ public class GreenPlatform : MonoBehaviour
                 currentTarget %= waypoints.Count;
 
                 waitTime = maxwaitTime;
+                
+                if (OnTrigger == true && currentTarget == 1)
+                {
+                    Triggered = false;
+                }
+                
             }
         }
-        transform.position = Vector2.MoveTowards(transform.position, waypoints[currentTarget].position,  speed * Time.deltaTime);
+
+        if (Triggered == true)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, waypoints[currentTarget].position, speed * Time.deltaTime);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -41,6 +63,12 @@ public class GreenPlatform : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.transform.parent = gameObject.transform;
+            
+            if (OnTrigger == true)
+            {
+                Triggered = true;
+            }
+            
         }
         
     }
