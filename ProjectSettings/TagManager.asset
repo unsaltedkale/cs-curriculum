@@ -11,6 +11,7 @@ TagManager:
   - ChasingRadius
   - AttackingRadius
   - BreakableDoor
+  - Staff
   layers:
   - Default
   - TransparentFX

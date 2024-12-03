@@ -5,12 +5,14 @@ public class PickUp : MonoBehaviour
     public GameManager gm;
     private int score;
     public TopDown_AnimatorController anim;
+    public PlayerController player;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gm = FindFirstObjectByType<GameManager>();
         anim = GetComponentInChildren<TopDown_AnimatorController>();
+        player = FindFirstObjectByType<PlayerController>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,12 @@ public class PickUp : MonoBehaviour
         {
             Destroy(other.gameObject);
             anim.SwitchToAxe();
+        }
+
+        if (other.CompareTag("Staff"))
+        {
+            Destroy(other.gameObject);
+            player.hasStaff = true;
         }
     }
 }

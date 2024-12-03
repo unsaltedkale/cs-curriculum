@@ -24,10 +24,10 @@ public class PlayerController : MonoBehaviour
     public bool hasaxe;
     public Collider2D col;
     public Rigidbody2D rb;
-    public float JumpHeight = 10f;
+    public float JumpHeight;
     public bool isGrounded;
     public float distance;
-    public float yOffset = -0.04f;
+    public float yOffset;
     
     private void Start()
     {
@@ -48,6 +48,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gm = FindFirstObjectByType<GameManager>();
         col = GetComponent<Collider2D>();
+        JumpHeight = bigJumpHeight;
+        gameObject.transform.localScale = bigSize;
+        hasStaff = false;
     }
 
     private void Update()
@@ -120,13 +123,37 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
         
+        if (keypress == true && Input.GetMouseButtonDown(1) && hasStaff == true)
+        {
+            isSmall = !isSmall;
+            
+            if (isSmall == true)
+            {
+                gameObject.transform.localScale = smallSize;
+                JumpHeight = smallJumpHeight;
+                xSpeed = smallxSpeed;
+            }
+
+            if (isSmall == false)
+            {
+                gameObject.transform.localScale = bigSize;
+                JumpHeight = bigJumpHeight;
+                xSpeed = bigxSpeed;
+            }
+        }
         
         Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
         Debug.DrawRay(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
-    }   
+    }
 
-
-   
+    private bool isSmall;
+    public float smallJumpHeight;
+    public float bigJumpHeight;
+    public Vector3 smallSize;
+    public Vector3 bigSize;
+    public float bigxSpeed;
+    public float smallxSpeed;
+    public bool hasStaff;
     
     
     private GameObject doorother;
