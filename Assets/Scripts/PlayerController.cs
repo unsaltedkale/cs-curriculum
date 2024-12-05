@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Runtime;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     public float distance;
     public float yOffset;
+    public int bigPotion;
+    public int smallPotion;
     
     private void Start()
     {
@@ -50,7 +55,6 @@ public class PlayerController : MonoBehaviour
         col = GetComponent<Collider2D>();
         JumpHeight = bigJumpHeight;
         gameObject.transform.localScale = bigSize;
-        hasStaff = false;
     }
 
     private void Update()
@@ -123,27 +127,31 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
         
-        if (keypress == true && Input.GetMouseButtonDown(1) && hasStaff == true)
+        if (keypress == true && Input.GetKeyDown(KeyCode.Q) && smallPotion > 0 && isSmall == false)
         {
-            isSmall = !isSmall;
-            
-            if (isSmall == true)
-            {
-                gameObject.transform.localScale = smallSize;
-                JumpHeight = smallJumpHeight;
-                xSpeed = smallxSpeed;
-            }
+            isSmall = true;
+            smallPotion -= 1;
+            gameObject.transform.localScale = smallSize;
+            JumpHeight = smallJumpHeight;
+            xSpeed = smallxSpeed;
+        }
 
-            if (isSmall == false)
-            {
-                gameObject.transform.localScale = bigSize;
-                JumpHeight = bigJumpHeight;
-                xSpeed = bigxSpeed;
-            }
+        if (keypress == true && Input.GetKeyDown(KeyCode.E) && bigPotion > 0 && isSmall == true)
+        {
+            isSmall = false;
+            bigPotion -= 1;
+            gameObject.transform.localScale = bigSize;
+            JumpHeight = bigJumpHeight;
+            xSpeed = bigxSpeed;
         }
         
-        Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
-        Debug.DrawRay(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
+        /*while (isSmall)
+        {
+            SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+            sr.color = Color.magenta;
+        }*/
+        //Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
+        //Debug.DrawRay(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
     }
 
     private bool isSmall;
@@ -153,7 +161,16 @@ public class PlayerController : MonoBehaviour
     public Vector3 bigSize;
     public float bigxSpeed;
     public float smallxSpeed;
-    public bool hasStaff;
+
+    public void AddSmallPotion()
+    {
+        smallPotion += 1;
+    }
+    
+    public void AddBigPotion()
+    {
+        bigPotion += 1;
+    }
     
     
     private GameObject doorother;

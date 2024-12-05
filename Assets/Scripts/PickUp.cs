@@ -38,10 +38,17 @@ public class PickUp : MonoBehaviour
             anim.SwitchToAxe();
         }
 
-        if (other.CompareTag("Staff"))
+        if (other.CompareTag("BigPotion"))
         {
+            player.AddBigPotion();
             Destroy(other.gameObject);
-            player.hasStaff = true;
         }
+        
+        if (other.CompareTag("SmallPotion"))
+        {
+            player.AddSmallPotion();
+            Destroy(other.gameObject);
+        }
+        
     }
 }
