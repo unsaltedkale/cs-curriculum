@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     private static GameManager gm;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI bigpotionText;
+    public TextMeshProUGUI smallpotionText;
     
     public int score;
     private int health;
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     private bool keypress;
     public float iframes;
     public float maxiframes = 2;
+    public GameObject player;
 
     void Awake()
     {
@@ -33,6 +36,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         healthText.text = "Health: " + health;
         scoreText.text = "Score: " + score;
+        bigpotionText.text = "Big Potions:" + bigPotion;
+        smallpotionText.text = "Small Potions:" + smallPotion;
     }
 
    
@@ -108,6 +113,42 @@ public class GameManager : MonoBehaviour
         
     }
 
+    private int bigPotion;
+    private int smallPotion;
+        
+        
+    public void ChangeBigPotion(int num)
+    {
+        bigPotion += num;
+    }
+
+    public void SetBigPotion(int num)
+    {
+        bigPotion = num;
+    }
+
+    public int CheckBigPotion()
+    {
+        return bigPotion;
+    }
+    
+    public void ChangeSmallPotion(int num)
+    {
+        smallPotion += num;
+    }
+
+    public void SetSmallPotion(int num)
+    {
+        smallPotion = num;
+    }
+
+    public int CheckSmallPotion()
+    {
+        return smallPotion;
+    }
+        
+        
+
     private bool dead = false;
 
     public void Die()
@@ -119,6 +160,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        
         if (iframes > 0)
         {
             iframes -= Time.deltaTime;

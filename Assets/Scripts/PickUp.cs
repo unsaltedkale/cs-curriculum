@@ -49,6 +49,12 @@ public class PickUp : MonoBehaviour
             player.AddSmallPotion();
             Destroy(other.gameObject);
         }
+
+        if (other.CompareTag("Staff"))
+        {
+            player.hasStaff = true;
+            Destroy(other.gameObject);
+        }
         
     }
 }

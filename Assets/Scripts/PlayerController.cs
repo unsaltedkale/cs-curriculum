@@ -127,22 +127,26 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
         
-        if (keypress == true && Input.GetKeyDown(KeyCode.Q) && smallPotion > 0 && isSmall == false)
+        if (keypress == true && Input.GetKeyDown(KeyCode.Q) && (smallPotion > 0 || hasStaff == true) && isSmall == false)
         {
             isSmall = true;
             smallPotion -= 1;
             gameObject.transform.localScale = smallSize;
             JumpHeight = smallJumpHeight;
             xSpeed = smallxSpeed;
+            SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+            sr.color = Color.magenta;
         }
 
-        if (keypress == true && Input.GetKeyDown(KeyCode.E) && bigPotion > 0 && isSmall == true)
+        if (keypress == true && Input.GetKeyDown(KeyCode.E) && (bigPotion > 0 || hasStaff == true) && isSmall == true)
         {
             isSmall = false;
             bigPotion -= 1;
             gameObject.transform.localScale = bigSize;
             JumpHeight = bigJumpHeight;
             xSpeed = bigxSpeed;
+            SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
+            sr.color = Color.white;
         }
         
         /*while (isSmall)
@@ -161,6 +165,7 @@ public class PlayerController : MonoBehaviour
     public Vector3 bigSize;
     public float bigxSpeed;
     public float smallxSpeed;
+    public bool hasStaff;
 
     public void AddSmallPotion()
     {

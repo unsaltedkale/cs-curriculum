@@ -12,6 +12,8 @@ TagManager:
   - AttackingRadius
   - BreakableDoor
   - Staff
+  - BigPotion
+  - SmallPotion
   layers:
   - Default
   - TransparentFX
