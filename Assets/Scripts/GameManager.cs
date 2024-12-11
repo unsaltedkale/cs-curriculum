@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         healthText.text = "Health: " + health;
         scoreText.text = "Score: " + score;
-        bigpotionText.text = "Big Potions:" + bigPotion;
-        smallpotionText.text = "Small Potions:" + smallPotion;
+        bigpotionText.text = "Big Potions: " + bigPotion;
+        smallpotionText.text = "Small Potions: " + smallPotion;
     }
 
    
@@ -120,11 +120,18 @@ public class GameManager : MonoBehaviour
     public void ChangeBigPotion(int num)
     {
         bigPotion += num;
+        
+        // Temporary Health display
+        Debug.Log("Big Potion: " + bigPotion);
+        // ACTUAL Health display
+        bigpotionText.text = "Big Potion: " + bigPotion;
     }
 
     public void SetBigPotion(int num)
     {
         bigPotion = num;
+        Debug.Log("Big Potion: " + bigPotion);
+        bigpotionText.text = "Big Potion: " + bigPotion;
     }
 
     public int CheckBigPotion()
@@ -135,16 +142,32 @@ public class GameManager : MonoBehaviour
     public void ChangeSmallPotion(int num)
     {
         smallPotion += num;
+        Debug.Log("Small Potion: " + smallPotion);
+        smallpotionText.text = "Small Potion: " + smallPotion;
     }
 
     public void SetSmallPotion(int num)
     {
         smallPotion = num;
+        Debug.Log("Small Potion: " + smallPotion);
+        smallpotionText.text = "Small Potion: " + smallPotion;
     }
 
     public int CheckSmallPotion()
     {
         return smallPotion;
+    }
+
+    private bool hasAxe;
+
+    public void SetAxe(bool b)
+    {
+        hasAxe = b;
+    }
+
+    public bool CheckAxe()
+    {
+        return hasAxe;
     }
         
         

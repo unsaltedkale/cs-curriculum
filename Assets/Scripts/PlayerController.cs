@@ -24,15 +24,23 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     private float attackanimationtimer;
     public GameObject Player_Projectile;
-    public bool hasaxe;
     public Collider2D col;
     public Rigidbody2D rb;
-    public float JumpHeight;
+    public float JumpHeight = 50;
     public bool isGrounded;
-    public float distance;
-    public float yOffset;
-    public int bigPotion;
-    public int smallPotion;
+    public float distance = 0.1f;
+    public float yOffset = 0.03f;
+    
+    private bool isSmall;
+    private float smallJumpHeight = 20;
+    private float bigJumpHeight = 70;
+    private Vector3 smallSize = new Vector3(0.5f, 0.5f, 0.5f);
+    private Vector3 bigSize = new Vector3(1.5f, 1.5f, 1.5f);
+    private float bigxSpeed = 5;
+    private float smallxSpeed = 3;
+    public bool hasStaff;
+    
+    private GameObject doorother;
     
     private void Start()
     {
@@ -43,6 +51,7 @@ public class PlayerController : MonoBehaviour
         if (overworld)
         {
             GetComponent<Rigidbody2D>().gravityScale = 0f;
+            bigSize = new Vector3(0.75f, 0.75f, 0.75f);
         }
         else
         {
@@ -98,9 +107,9 @@ public class PlayerController : MonoBehaviour
             GameObject clone = Instantiate(Player_Projectile, transform.position + vector*1f, quaternion.identity);
             Player_Projectile script = clone.GetComponent<Player_Projectile>();
             script.target = Input.mousePosition;
-            script.isfromaxe = hasaxe;
+            script.isfromaxe = gm.CheckAxe();
 
-            if (doorother != null && hasaxe)
+            if (doorother != null && gm.CheckAxe() == true)
             {
                 doorother.SetActive(false);
             }
@@ -110,7 +119,6 @@ public class PlayerController : MonoBehaviour
         {
             //transform.position += new Vector3(0, JumpHeight, 0);
             rb.AddForce(Vector2.up * JumpHeight, ForceMode2D.Impulse);
-            print("jump");
             isGrounded = false;
         }
         
@@ -119,7 +127,6 @@ public class PlayerController : MonoBehaviour
             || Physics2D.Raycast(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down, distance))
         {
             isGrounded = true;
-            print("hit");
         }
 
         else
@@ -127,10 +134,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
         
-        if (keypress == true && Input.GetKeyDown(KeyCode.Q) && (smallPotion > 0 || hasStaff == true) && isSmall == false)
+        if (keypress == true && Input.GetKeyDown(KeyCode.Q) && (gm.CheckSmallPotion() > 0 || hasStaff == true) && isSmall == false)
         {
             isSmall = true;
-            smallPotion -= 1;
+            if (hasStaff == false)
+            {
+                gm.ChangeSmallPotion(-1); 
+            }
             gameObject.transform.localScale = smallSize;
             JumpHeight = smallJumpHeight;
             xSpeed = smallxSpeed;
@@ -138,10 +148,13 @@ public class PlayerController : MonoBehaviour
             sr.color = Color.magenta;
         }
 
-        if (keypress == true && Input.GetKeyDown(KeyCode.E) && (bigPotion > 0 || hasStaff == true) && isSmall == true)
+        if (keypress == true && Input.GetKeyDown(KeyCode.E) && (gm.CheckBigPotion() > 0 || hasStaff == true) && isSmall == true)
         {
             isSmall = false;
-            bigPotion -= 1;
+            if (hasStaff == false)
+            {
+                gm.ChangeBigPotion(-1); 
+            }
             gameObject.transform.localScale = bigSize;
             JumpHeight = bigJumpHeight;
             xSpeed = bigxSpeed;
@@ -149,36 +162,9 @@ public class PlayerController : MonoBehaviour
             sr.color = Color.white;
         }
         
-        /*while (isSmall)
-        {
-            SpriteRenderer sr = GetComponentInChildren<SpriteRenderer>();
-            sr.color = Color.magenta;
-        }*/
         //Debug.DrawRay(new Vector2(transform.position.x + col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
         //Debug.DrawRay(new Vector2(transform.position.x - col.bounds.extents.x, transform.position.y - col.bounds.extents.y + yOffset), Vector2.down * distance);
     }
-
-    private bool isSmall;
-    public float smallJumpHeight;
-    public float bigJumpHeight;
-    public Vector3 smallSize;
-    public Vector3 bigSize;
-    public float bigxSpeed;
-    public float smallxSpeed;
-    public bool hasStaff;
-
-    public void AddSmallPotion()
-    {
-        smallPotion += 1;
-    }
-    
-    public void AddBigPotion()
-    {
-        bigPotion += 1;
-    }
-    
-    
-    private GameObject doorother;
 
     private void OnCollisionEnter2D(Collision2D other)
     {

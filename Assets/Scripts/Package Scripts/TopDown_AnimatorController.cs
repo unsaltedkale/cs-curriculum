@@ -15,6 +15,7 @@ public class TopDown_AnimatorController : MonoBehaviour
     Animator anim;
     SpriteRenderer sprite;
     public PlayerController playercontroller;
+    public GameManager gm;
     
 
     private void Start()
@@ -22,6 +23,7 @@ public class TopDown_AnimatorController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.runtimeAnimatorController = animShovel;
         sprite = GetComponent<SpriteRenderer>();
+        gm = FindFirstObjectByType<GameManager>();
 
         //start off facing to the right.
         anim.SetBool("IsWalking", false);
@@ -84,13 +86,13 @@ public class TopDown_AnimatorController : MonoBehaviour
     public void SwitchToAxe()
     {
         anim.runtimeAnimatorController = animAxe;
-        playercontroller.hasaxe = true;
+        gm.SetAxe(true);
     }
 
     // Call this function to set the weapon back to a shovel.
     public void SwitchToShovel()
     {
         anim.runtimeAnimatorController = animShovel;
-        playercontroller.hasaxe = false;
+        gm.SetAxe(false);
     }
 }

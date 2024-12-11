@@ -265,8 +265,16 @@ MonoBehaviour:
   xSpeed: 5
   ySpeed: 5
   attackcooldown: 0
-  Player_Projectile: {fileID: 0}
+  Player_Projectile: {fileID: 5790822057519619805, guid: 76011cb888e0e45c9ab72829080a2d3f,
+    type: 3}
   hasaxe: 0
+  col: {fileID: 0}
+  rb: {fileID: 0}
+  JumpHeight: 50
+  isGrounded: 0
+  distance: 0.1
+  yOffset: 0.03
+  hasStaff: 0
 --- !u!114 &2873576006610771089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,3 +308,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   anim: {fileID: 0}
+  player: {fileID: 0}

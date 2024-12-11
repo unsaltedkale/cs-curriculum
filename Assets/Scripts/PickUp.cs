@@ -36,17 +36,18 @@ public class PickUp : MonoBehaviour
         {
             Destroy(other.gameObject);
             anim.SwitchToAxe();
+            gm.SetAxe(true);
         }
 
         if (other.CompareTag("BigPotion"))
         {
-            player.AddBigPotion();
+            gm.ChangeBigPotion(1);
             Destroy(other.gameObject);
         }
         
         if (other.CompareTag("SmallPotion"))
         {
-            player.AddSmallPotion();
+            gm.ChangeSmallPotion(1);
             Destroy(other.gameObject);
         }
 
