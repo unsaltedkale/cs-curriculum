@@ -5,6 +5,7 @@ using System.Runtime;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -94,9 +95,8 @@ public class PlayerController : MonoBehaviour
             keypress = false;
         }
 
-        if (keypress == true && Input.GetMouseButton(0) && attackcooldown <= 0 && attackanimationtimer <= 0)
+        if (keypress == true && Input.GetMouseButton(0) && attackcooldown <= 0 && attackanimationtimer <= 0 && SceneManager.GetActiveScene().name != "Start")
         {
-            Debug.Log("attackinggggg player attacking");
             anim.SetTrigger("Attack");
             anim.SetBool("IsWalking", false);
             attackcooldown = attackcooldownmax;
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
             // offset so doesn't hit player
             Vector3 vector = Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
             vector = Vector3.Normalize(vector);
-            GameObject clone = Instantiate(Player_Projectile, transform.position + vector*1f, quaternion.identity);
+            GameObject clone = Instantiate(Player_Projectile, transform.position + vector*0.5f, quaternion.identity);
             Player_Projectile script = clone.GetComponent<Player_Projectile>();
             script.target = Input.mousePosition;
             script.isfromaxe = gm.CheckAxe();
@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true && SceneManager.GetActiveScene().name != "Start" && SceneManager.GetActiveScene().name != "Overworld")
         {
             //transform.position += new Vector3(0, JumpHeight, 0);
             rb.AddForce(Vector2.up * JumpHeight, ForceMode2D.Impulse);

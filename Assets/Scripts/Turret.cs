@@ -25,6 +25,7 @@ public class Turret : MonoBehaviour
             GameObject clone = Instantiate(Turret_Projectile, transform.position, quaternion.identity);
             Turret_Projectile script = clone.GetComponent<Turret_Projectile>();
             script.target = player.transform.position;
+            script.player = player.gameObject;
             cooldown = firerate;
         }
         cooldown -= Time.deltaTime;

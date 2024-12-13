@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Turret_Projectile : MonoBehaviour
@@ -9,20 +10,19 @@ public class Turret_Projectile : MonoBehaviour
     public Vector3 target;
     private GameManager gm;
     public Vector3 moveVector;
+    public GameObject player;
     
     void Start()
     {
         StartCoroutine(die_soon());
         gm = FindFirstObjectByType<GameManager>();
-        transform.LookAt(target);
+        moveVector = target - transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //target_vector = speed * heading * Time.deltaTime;
-        //transform.Translate(target_vector);
-        transform.Translate(transform.forward * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, moveVector * 5, speed * Time.deltaTime);
     }
     
     private void OnCollisionEnter2D(Collision2D other)

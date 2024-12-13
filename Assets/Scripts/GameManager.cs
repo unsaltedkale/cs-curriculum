@@ -36,8 +36,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         healthText.text = "Health: " + health;
         scoreText.text = "Score: " + score;
-        bigpotionText.text = "Big Potions: " + bigPotion;
-        smallpotionText.text = "Small Potions: " + smallPotion;
+        bigpotionText.text = "";
+        smallpotionText.text = "";
     }
 
    
@@ -122,16 +122,16 @@ public class GameManager : MonoBehaviour
         bigPotion += num;
         
         // Temporary Health display
-        Debug.Log("Big Potion: " + bigPotion);
+        Debug.Log("(E) Big Potion: " + bigPotion);
         // ACTUAL Health display
-        bigpotionText.text = "Big Potion: " + bigPotion;
+        bigpotionText.text = "(E) Big Potion: " + bigPotion;
     }
 
     public void SetBigPotion(int num)
     {
         bigPotion = num;
-        Debug.Log("Big Potion: " + bigPotion);
-        bigpotionText.text = "Big Potion: " + bigPotion;
+        Debug.Log("(E) Big Potion: " + bigPotion);
+        bigpotionText.text = "(E) Big Potion: " + bigPotion;
     }
 
     public int CheckBigPotion()
@@ -142,15 +142,15 @@ public class GameManager : MonoBehaviour
     public void ChangeSmallPotion(int num)
     {
         smallPotion += num;
-        Debug.Log("Small Potion: " + smallPotion);
-        smallpotionText.text = "Small Potion: " + smallPotion;
+        Debug.Log("(Q) Small Potion: " + smallPotion);
+        smallpotionText.text = "(Q) Small Potion: " + smallPotion;
     }
 
     public void SetSmallPotion(int num)
     {
         smallPotion = num;
-        Debug.Log("Small Potion: " + smallPotion);
-        smallpotionText.text = "Small Potion: " + smallPotion;
+        Debug.Log("(Q) Small Potion: " + smallPotion);
+        smallpotionText.text = "(Q) Small Potion: " + smallPotion;
     }
 
     public int CheckSmallPotion()

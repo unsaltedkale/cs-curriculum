@@ -8,7 +8,7 @@ public class Player_Projectile : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private Vector3 CenterRef = new Vector3 (Screen.width*0.5f, Screen.height*0.5f);
-    private float speed = 4f;
+    private float speed = 3f;
     public Vector3 target; // current mouse position where bottom left of screen is 0,0 and
     // The top-right of the screen or window is at (Screen.width, Screen.height).
     private Vector3 mousePos;
@@ -26,8 +26,6 @@ public class Player_Projectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //target_vector = speed * heading * Time.deltaTime;
-        //transform.Translate(target_vector);
         transform.position = Vector3.MoveTowards(transform.position, mousePos, speed * Time.deltaTime);
     }
     
@@ -54,7 +52,7 @@ public class Player_Projectile : MonoBehaviour
 
     IEnumerator die_soon()
     {
-        yield return new WaitForSeconds(6);
+        yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
     }
 }
