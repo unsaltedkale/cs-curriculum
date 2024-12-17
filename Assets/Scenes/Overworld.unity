@@ -39821,6 +39821,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5774960653562304022, guid: bc139d8bb8dee439490b05712200dfee,
         type: 3}
+      propertyPath: doorother
+      value: 
+      objectReference: {fileID: 273091920}
+    - target: {fileID: 5774960653562304022, guid: bc139d8bb8dee439490b05712200dfee,
+        type: 3}
       propertyPath: Player_Projectile
       value: 
       objectReference: {fileID: 5790822057519619805, guid: 76011cb888e0e45c9ab72829080a2d3f,
