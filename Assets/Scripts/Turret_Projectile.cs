@@ -17,25 +17,15 @@ public class Turret_Projectile : MonoBehaviour
     {
         StartCoroutine(die_soon());
         gm = FindFirstObjectByType<GameManager>();
-        moveVector = target - transform.position;
+        moveVector = Vector3.Normalize(target - transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!reachedTarget)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
-        }
 
-        if (Vector2.Distance(transform.position, target) > 1f)
-        {
-            Vector3 vector = target - transform.position;
-            Vector3.Normalize(vector);
-            print (vector);
-            Debug.DrawRay(vector);
-        }
-        
+        transform.position += moveVector * (speed * Time.deltaTime);
+        Debug.DrawLine(transform.position, transform.position + moveVector, Color.blue);
     }
     
     private void OnCollisionEnter2D(Collision2D other)

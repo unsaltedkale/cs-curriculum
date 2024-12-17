@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private float smallxSpeed = 3;
     public bool hasStaff;
     
-    private GameObject doorother;
+    public GameObject doorother;
     
     private void Start()
     {

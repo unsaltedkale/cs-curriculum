@@ -52,7 +52,7 @@ public class Mobile_Enemy : MonoBehaviour
         waitTime = maxwaitTime;
         state = States.Patrol;
         startofstate = true;
-        attackingradius = 2f;
+        attackingradius = 1.5f;
         attackcooldownmax = 2;
         hitbox = GetComponent<BoxCollider2D>();
         hitboxoriginal = new Vector2 (0.72f, 1.14f);
@@ -119,6 +119,7 @@ public class Mobile_Enemy : MonoBehaviour
             attackcooldown -= Time.deltaTime;
             
             // AAAAAAA WHY IS THIS WEIRD HALP
+            // ^ don't worry about her haha --dec 17th alex
             if (attackanimationtimer >= 0) // if the attack animation is not playing
             {
                 attackanimationtimer -= Time.deltaTime;
@@ -131,7 +132,6 @@ public class Mobile_Enemy : MonoBehaviour
                 // start of attack
                 attackcooldown = attackcooldownmax;
                 attackanimationtimer = 0.75f;
-                print("im attacking!!!! raaaaa!!!!!!!");
                 tdea.Attack(); // play the attack animation
             }
 
@@ -143,11 +143,9 @@ public class Mobile_Enemy : MonoBehaviour
                 if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && gm.GetHealth() > 0)
                 {
                     gm.ChangeHealth(-3);
-                    print("gotcha lol get gud");
                     attackanimationtimer = 0;
                     hitbox.size = hitboxoriginal;
                     hitbox.isTrigger = false;
-                    print("wowieeee!!!!!!!!!");
                 }
             }
 
@@ -164,17 +162,21 @@ public class Mobile_Enemy : MonoBehaviour
             }
             
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
         
-        else if (GetComponent<Collider2D>().IsTouching(player.GetComponent<Collider2D>()) && state != States.Attacking)
+        if (other.gameObject.CompareTag("Player") == true && state != States.Attacking);
         {
             state = States.Attacking;
-            startofstate = true;
+            startofstate = true;  
         }
+        
     }
     
     private void EnemyDie()
     {
-        print (":(((( ouchiessssss");
         GameObject clone = Instantiate(AxeItem, transform.position, quaternion.identity);
         Destroy(gameObject);
     }
